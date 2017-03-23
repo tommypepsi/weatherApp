@@ -24,6 +24,7 @@ html, body{
   width: 300px;
   text-align: center;
   font-size: 20px;
+  cursor: default;
 }
 #inputCity{
   width: 300px;
@@ -67,4 +68,31 @@ html, body{
   position: absolute;
   right: 20px;
   top: 20px;
+  cursor: pointer;
+}
+
+#currentPos{
+  background-color: rgba(0,0,0,0.5);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+#currentPos i{
+  position: relative;
+  top: 10px;
+  left: 10px;
+}
+#currentPos:hover i{
+  top:5px;
+  left:5px;
+  font-size: 40px;
+}
+#currentPos:active i{
+  font-size: 25px;
+  top:12px;
+  left: 12px;
 }

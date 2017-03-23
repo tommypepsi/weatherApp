@@ -54,6 +54,7 @@ var background =
   "mist": { "id": "ggA9SNRPYdo", "start": 35, "end": 37}
 }
 var cityId = "";
+var currentScale = false;
 
 $(document).ready(function(){
   if(navigator.geolocation)
@@ -66,6 +67,7 @@ $(document).ready(function(){
     },
     function(){
       inputCityInteraction()
+      $("#currentPos").css("display", "none");
       /*$("#cityForm").focusout(function(){
         $("#citySelect").css("display", "none")
       })*/
@@ -81,6 +83,24 @@ $(document).ready(function(){
   $("#changeLocation").click(function(){
     $("#changeLocation").css("display", "none");
     $("#cityForm").css("display", "block");
+  })
+
+  $("#currentPos").click(function(){
+    if(navigator.geolocation)
+    {
+      navigator.geolocation.getCurrentPosition(function(pos){
+
+        var apiLink = "http://api.openweathermap.org/data/2.5/weather?lat="+ pos.coords.latitude +"&lon="+ pos.coords.longitude +"&APPID=75784ba7351c76f72208e9d50929e460";
+        getWeather(apiLink, false);
+        inputCityInteraction()
+      },
+      function(){
+        inputCityInteraction()
+        /*$("#cityForm").focusout(function(){
+          $("#citySelect").css("display", "none")
+        })*/
+      })
+    }
   })
 })
 
@@ -177,7 +197,7 @@ function selectCity(cityName){
 
 
   var apiLink = "http://api.openweathermap.org/data/2.5/weather?id=" + cityId + "&APPID=75784ba7351c76f72208e9d50929e460";
-  getWeather(apiLink, false);
+  getWeather(apiLink, currentScale);
 
 }
 
@@ -226,11 +246,13 @@ function getWeather(link, bool){  //false = celsius, true = fahrenheit
   })
 
   $("#celsius").click(function(){
+    currentScale = false;
     var apiLink = "http://api.openweathermap.org/data/2.5/weather?id=" + cityId + "&APPID=75784ba7351c76f72208e9d50929e460";
-    getWeather(apiLink, false)
+    getWeather(apiLink, currentScale)
   })
   $("#far").click(function(){
+    currentScale = true;
     var apiLink = "http://api.openweathermap.org/data/2.5/weather?id=" + cityId + "&APPID=75784ba7351c76f72208e9d50929e460";
-    getWeather(apiLink, true)
+    getWeather(apiLink, currentScale)
   })
 }
