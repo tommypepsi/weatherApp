@@ -90,7 +90,7 @@ $(document).ready(function(){
     {
       navigator.geolocation.getCurrentPosition(function(pos){
 
-        var apiLink = "https://api.openweathermap.org/data/2.5/weather?lat="+ pos.coords.latitude +"&lon="+ pos.coords.longitude +"&APPID=75784ba7351c76f72208e9d50929e460";
+        var apiLink = "http://api.openweathermap.org/data/2.5/weather?lat="+ pos.coords.latitude +"&lon="+ pos.coords.longitude +"&APPID=75784ba7351c76f72208e9d50929e460";
         getWeather(apiLink, false);
         inputCityInteraction()
       },
@@ -196,7 +196,7 @@ function selectCity(cityName){
   }
 
 
-  var apiLink = "https://api.openweathermap.org/data/2.5/weather?id=" + cityId + "&APPID=75784ba7351c76f72208e9d50929e460";
+  var apiLink = "http://api.openweathermap.org/data/2.5/weather?id=" + cityId + "&APPID=75784ba7351c76f72208e9d50929e460";
   getWeather(apiLink, currentScale);
 
 }
@@ -247,12 +247,12 @@ function getWeather(link, bool){  //false = celsius, true = fahrenheit
 
   $("#celsius").click(function(){
     currentScale = false;
-    var apiLink = "https://api.openweathermap.org/data/2.5/weather?id=" + cityId + "&APPID=75784ba7351c76f72208e9d50929e460";
+    var apiLink = "http://api.openweathermap.org/data/2.5/weather?id=" + cityId + "&APPID=75784ba7351c76f72208e9d50929e460";
     getWeather(apiLink, currentScale)
   })
   $("#far").click(function(){
     currentScale = true;
-    var apiLink = "https://api.openweathermap.org/data/2.5/weather?id=" + cityId + "&APPID=75784ba7351c76f72208e9d50929e460";
+    var apiLink = "http://api.openweathermap.org/data/2.5/weather?id=" + cityId + "&APPID=75784ba7351c76f72208e9d50929e460";
     getWeather(apiLink, currentScale)
   })
 }
