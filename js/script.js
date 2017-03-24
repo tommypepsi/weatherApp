@@ -62,9 +62,7 @@ $(document).ready(function(){
     navigator.geolocation.getCurrentPosition(function(pos){
 
       var apiLink = "https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?lat="+ pos.coords.latitude +"&lon="+ pos.coords.longitude +"&APPID=75784ba7351c76f72208e9d50929e460";
-      setTimeout(function(){
-        getWeather(apiLink, false);
-      }, 100);
+      getWeather(apiLink, false);
       inputCityInteraction()
     },
     function(){
@@ -223,14 +221,31 @@ function getWeather(link, bool){  //false = celsius, true = fahrenheit
       var weather = json.weather[0].description;
 
       //change background
-      if(videoId != background[weather].id)
+      if(!isPlayerReady)
       {
-        start = background[weather].start;
-        end = background[weather].end;
-        videoId = background[weather].id
-        player.loadVideoById(videoId);
-        player.seekTo(start, 1)
+        window.addEventListener("playerReady", function(){
+          if(videoId != background[weather].id)
+          {
+            start = background[weather].start;
+            end = background[weather].end;
+            videoId = background[weather].id
+            player.loadVideoById(videoId);
+            player.seekTo(start, 1)
+          }
+        })
       }
+      else {
+        if(videoId != background[weather].id)
+        {
+          start = background[weather].start;
+          end = background[weather].end;
+          videoId = background[weather].id
+          player.loadVideoById(videoId);
+          player.seekTo(start, 1)
+        }
+      }
+
+
 
 
       $(".weather").html(weather);
