@@ -62,7 +62,9 @@ $(document).ready(function(){
     navigator.geolocation.getCurrentPosition(function(pos){
 
       var apiLink = "https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?lat="+ pos.coords.latitude +"&lon="+ pos.coords.longitude +"&APPID=75784ba7351c76f72208e9d50929e460";
-      getWeather(apiLink, false);
+      setTimeout(function(){
+        getWeather(apiLink, false);
+      }, 100);
       inputCityInteraction()
     },
     function(){
