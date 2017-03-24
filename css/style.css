@@ -96,3 +96,6 @@ html, body{
   top:12px;
   left: 12px;
 }
+#center{
+  display: none;
+}

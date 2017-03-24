@@ -61,7 +61,7 @@ $(document).ready(function(){
   {
     navigator.geolocation.getCurrentPosition(function(pos){
 
-      var apiLink = "https://api.openweathermap.org/data/2.5/weather?lat="+ pos.coords.latitude +"&lon="+ pos.coords.longitude +"&APPID=75784ba7351c76f72208e9d50929e460";
+      var apiLink = "https://crossorigin.me/http://api.openweathermap.org/data/2.5/weather?lat="+ pos.coords.latitude +"&lon="+ pos.coords.longitude +"&APPID=75784ba7351c76f72208e9d50929e460";
       getWeather(apiLink, false);
       inputCityInteraction()
     },
@@ -90,7 +90,7 @@ $(document).ready(function(){
     {
       navigator.geolocation.getCurrentPosition(function(pos){
 
-        var apiLink = "http://api.openweathermap.org/data/2.5/weather?lat="+ pos.coords.latitude +"&lon="+ pos.coords.longitude +"&APPID=75784ba7351c76f72208e9d50929e460";
+        var apiLink = "https://crossorigin.me/http://api.openweathermap.org/data/2.5/weather?lat="+ pos.coords.latitude +"&lon="+ pos.coords.longitude +"&APPID=75784ba7351c76f72208e9d50929e460";
         getWeather(apiLink, false);
         inputCityInteraction()
       },
@@ -196,7 +196,7 @@ function selectCity(cityName){
   }
 
 
-  var apiLink = "http://api.openweathermap.org/data/2.5/weather?id=" + cityId + "&APPID=75784ba7351c76f72208e9d50929e460";
+  var apiLink = "https://crossorigin.me/http://api.openweathermap.org/data/2.5/weather?id=" + cityId + "&APPID=75784ba7351c76f72208e9d50929e460";
   getWeather(apiLink, currentScale);
 
 }
@@ -214,6 +214,7 @@ function getWeather(link, bool){  //false = celsius, true = fahrenheit
   $.getJSON(link, function(json){
       console.log(JSON.stringify(json))
       console.log(JSON.stringify(json.weather[0].description))
+      $("#center").css("display", "block");
       $("#changeLocation").css("display", "block");
       $("#cityForm").css("display", "none");
       cityId = json.id;
@@ -247,12 +248,12 @@ function getWeather(link, bool){  //false = celsius, true = fahrenheit
 
   $("#celsius").click(function(){
     currentScale = false;
-    var apiLink = "http://api.openweathermap.org/data/2.5/weather?id=" + cityId + "&APPID=75784ba7351c76f72208e9d50929e460";
+    var apiLink = "https://crossorigin.me/http://api.openweathermap.org/data/2.5/weather?id=" + cityId + "&APPID=75784ba7351c76f72208e9d50929e460";
     getWeather(apiLink, currentScale)
   })
   $("#far").click(function(){
     currentScale = true;
-    var apiLink = "http://api.openweathermap.org/data/2.5/weather?id=" + cityId + "&APPID=75784ba7351c76f72208e9d50929e460";
+    var apiLink = "https://crossorigin.me/http://api.openweathermap.org/data/2.5/weather?id=" + cityId + "&APPID=75784ba7351c76f72208e9d50929e460";
     getWeather(apiLink, currentScale)
   })
 }
