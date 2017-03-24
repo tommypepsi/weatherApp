@@ -17,7 +17,7 @@
       <div id="player"></div>
 
       <script>
-        //global variable for start and end of video
+        //global variable for start and end of video and to know if the player is ready
         var start = -1;
         var end = -1;
         var isPlayerReady = false;
@@ -31,10 +31,13 @@
 
         // 3. This function creates an <iframe> (and YouTube player)
         //    after the API code downloads.
+        //and variable for the video
         var player;
         var newVideoHeight;
         var newVideoWidth;
         var videoId = "YgmIibSnZs0";
+
+        //formula to make sure there is no black border on any side
         if( 1920 / (1080 / $(window).height()) > $(window).width() )
         {
           newVideoHeight = $(window).height();
@@ -45,6 +48,7 @@
           newVideoWidth = $(window).width();
           newVideoHeight = 1080 / (1920 / $(window).width());
         }
+
         function onYouTubeIframeAPIReady() {
           player = new YT.Player('player', {
             videoId: videoId,
@@ -68,19 +72,24 @@
         // 4. The API will call this function when the video player is ready.
         function onPlayerReady(event) {
 
+          //when the player is ready we create an event to listen for the first api call(or else the function the makes the api call will make an error if the player is not ready)
           var evt = new CustomEvent("playerReady");
           window.dispatchEvent(evt);
+          //variable to know if the player is ready
           isPlayerReady = true;
 
+          //function to loop through a particular section of the video
           function checkTime(){
               setTimeout(function(){
                   var videotime = Math.round(player.getCurrentTime());
+                  //if the video time is not at the desired end
                   if(videotime !== end)
                   {
                        checkTime();//Recursive call.
                   }
                   else
                   {
+                    //else we go to the desired start
                       player.seekTo(start, 1);
                       checkTime();
                   }
@@ -88,9 +97,11 @@
           }
 
           event.target.playVideo();
+          //mute the video
           player.mute();
           checkTime();
         }
+        //when we resize the window we resize the video
         $(window).resize(function(){
           var newVideoHeight;
           var newVideoWidth;
